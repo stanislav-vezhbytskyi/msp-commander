@@ -1,15 +1,20 @@
-#include "../include/msp-dto.h"
-#include "../include/parsing_state.h"
+#include "../include/dto/msp_dto.h"
+#include "parsing_state.h"
+#include "msp_parser.h"
+
 #include <fcntl.h>
-#include <termios.h>
 #include <unistd.h>
 #include <iostream>
 #include <vector>
 #include <cstdint>
-#include "../include/msp-parser.h"
+
+#include "handler/msp_dto_handler.h"
+
 
 int main() {
-    int fd = open("../test/resources/mock_msp.bin", O_RDONLY);
+
+    std::cout<<"start parsing"<<std::endl;
+    int fd = open("mock_msp.bin", O_RDONLY);
     if (fd == -1) {
         perror("open");
         return 1;
@@ -29,12 +34,19 @@ int main() {
     MSPParser mspParser;
 
 
-    while(true){
+    std::cout<<"start parsing"<<std::endl;
+   // while(true){
         ssize_t bytesRead = read(fd, buffer.data(), buffer.size());
+        std::cout<<"start parsing"<<std::endl;
         mspParser.parse(bytesRead,buffer,packets);
         
-    }
-    
+    //}
+
+    MspDtoHandler handler;
+    handler.handle(packets.back());
+
+
+
 
     std::cout << packets.back().checksum << std::endl;
     std::cout << "end program" << std::endl;
