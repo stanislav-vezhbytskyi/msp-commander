@@ -15,9 +15,10 @@ add_executable(msp_parser
         "src/handler/msp_dto_handler.cpp"
         "src/handler/msp_dto_handler.h"
         src/forwarder/idata_forwarder.h
-        src/forwarder/pid_forwarder.cpp
-        src/forwarder/pid_forwarder.h
         src/decoder/decoder_factory.cpp
         src/decoder/decoder_factory.h
         include/docoded_types.h
+        src/decoder/status_decoder.cpp
+        src/decoder/status_decoder.h
+        src/forwarder/data_forwarder.cpp
 )

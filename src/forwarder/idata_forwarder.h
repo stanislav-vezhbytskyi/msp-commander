@@ -2,8 +2,8 @@
 #include "docoded_types.h"
 
 
-class IDataForwarder {
+class DataForwarder {
 public:
-    virtual ~IDataForwarder() = default;
-    virtual void forward(const DecodedTypes& data) = 0;
+    virtual ~DataForwarder() = default;
+    virtual void forward(const DecodedTypes& data);
 };

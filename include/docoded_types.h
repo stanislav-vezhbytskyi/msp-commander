@@ -6,7 +6,7 @@
 
 using DecodedTypes = std::variant<
     std::vector<MSP::PID>,
-    MSP::GyroData,
+    MSP::MSPSTATUS,
     std::monostate
 //, todo: add new types
 >;

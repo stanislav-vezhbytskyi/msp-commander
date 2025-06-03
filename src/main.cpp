@@ -14,7 +14,7 @@
 int main() {
 
     std::cout<<"start parsing"<<std::endl;
-    int fd = open("mock_msp.bin", O_RDONLY);
+    int fd = open("mock_msp_status.bin", O_RDONLY);
     if (fd == -1) {
         perror("open");
         return 1;

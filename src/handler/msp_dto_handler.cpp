@@ -4,7 +4,8 @@
 
 #include "../decoder/decoder_factory.h"
 #include "../decoder/pid_decoder.h"
-#include "../forwarder/pid_forwarder.h"
+#include "../decoder/status_decoder.h"
+#include "../forwarder/idata_forwarder.h"
 
 void MspDtoHandler::handle(const MSPDTO& dto) {
     auto decoder = create_decoder(dto.command);
@@ -13,9 +14,9 @@ void MspDtoHandler::handle(const MSPDTO& dto) {
         return;
     }
 
-    DecodedTypes data = decoder->decode(dto.payload);
+    const DecodedTypes data = decoder->decode(dto.payload);
 
-    PIDForwarder forwarder;
+    DataForwarder forwarder;
     forwarder.forward(data);
 }
 
@@ -23,7 +24,10 @@ std::unique_ptr<IDecoder> MspDtoHandler::create_decoder(uint8_t command) {
     switch (command) {
         case MSP::MessageID::PID:
             return std::make_unique<PIDDecoder>();
-              default:
+
+        case MSP::MessageID::STATUS:
+            return std::make_unique<StatusDecoder>();
+        default:
             return nullptr;
     }
 }

@@ -68,7 +68,15 @@ namespace MSP {
         uint8_t p, i, d;
     };
 
-    struct GyroData {
+    struct Gyro {
         float x, y, z;
+    };
+
+    struct MSPSTATUS {
+        uint16_t cycleTime;
+        uint16_t i2cErrorsCount;
+        uint16_t sensor;
+        uint32_t flag;// todo: add dynamic logic to change parameter sequence
+        uint8_t currentSet;
     };
 }
