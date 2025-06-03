@@ -1,8 +1,9 @@
 #pragma once
+#include "docoded_types.h"
 
 
 class IDataForwarder {
 public:
     virtual ~IDataForwarder() = default;
-    virtual void forward(const std::any& data) = 0;
+    virtual void forward(const DecodedTypes& data) = 0;
 };

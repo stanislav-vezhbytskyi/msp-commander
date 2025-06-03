@@ -5,5 +5,5 @@
 
 class PIDForwarder : public IDataForwarder {
 public:
-    void forward(const std::any& data) override;
+    void forward(const DecodedTypes& data) override;
 };

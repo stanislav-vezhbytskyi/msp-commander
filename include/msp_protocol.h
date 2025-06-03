@@ -65,8 +65,10 @@ namespace MSP {
     }
 
     struct PID {
-        uint8_t P;
-        uint8_t I;
-        uint8_t D;
+        uint8_t p, i, d;
+    };
+
+    struct GyroData {
+        float x, y, z;
     };
 }
