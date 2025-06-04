@@ -1,5 +1,4 @@
-#ifndef MSP_DTO_H
-#define MSP_DTO_H
+#pragma once
 
 #include <vector>
 #include <cstdint>
@@ -11,5 +10,3 @@ struct MSPDTO {
     std::vector<uint8_t> payload;
     uint8_t checksum;
 };
-
-#endif 

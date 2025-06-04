@@ -1,6 +1,5 @@
 #include "../include/dto/msp_dto.h"
-#include "parsing_state.h"
-#include "msp_parser.h"
+#include "../include/decoder/msp_parser.h"
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -8,7 +7,7 @@
 #include <vector>
 #include <cstdint>
 
-#include "handler/msp_dto_handler.h"
+#include "decoder/handler/msp_dto_handler.h"
 
 
 int main() {
@@ -30,7 +29,6 @@ int main() {
 
     std::vector<uint8_t> buffer(64);
     std::vector<MSPDTO> packets;
-    ParsingState parsingState = ParsingState::WaitingForHeader;
     MSPParser mspParser;
 
 
