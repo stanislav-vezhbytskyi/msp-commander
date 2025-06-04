@@ -1,7 +1,7 @@
 #include "status_decoder.h"
 
 DecodedTypes StatusDecoder::decode(const std::vector<uint8_t> &payload) {
-    MSP::MSPSTATUS s;
+    MSP::STATUS s;
 
     s.cycleTime = payload[0] | (payload[1] << 8);
     s.i2cErrorsCount = payload[2] | (payload[3]<< 8);

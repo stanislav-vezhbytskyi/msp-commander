@@ -4,17 +4,19 @@
 
 #include "msp_protocol.h"
 
-DecodedTypes PIDDecoder::decode(const std::vector<uint8_t>& payload){
-    std::vector<MSP::PID> pids;
-    if (payload.size() % 3 != 0) return std::monostate{};
+DecodedTypes PIDDecoder::decode(const std::vector<uint8_t> &payload) {
+    MSP::PID pid;
 
-    for (size_t i = 0; i < payload.size(); i += 3) {
-        MSP::PID pid {
-            .p = payload[i],
-            .i = payload[i + 1],
-            .d = payload[i + 2]
-        };
-        pids.push_back(pid);
-    }
-    return pids;
+    pid.roll = payload[0];
+    pid.pitch = payload[1];
+    pid.yaw = payload[2];
+    pid.alt = payload[3];
+    pid.pos = payload[4];
+    pid.posr = payload[5];
+    pid.navr = payload[6];
+    pid.level = payload[7];
+    pid.mag = payload[8];
+    pid.vel = payload[9];
+
+    return pid;
 }

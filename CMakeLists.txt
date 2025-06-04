@@ -21,4 +21,10 @@ add_executable(msp_parser
         src/decoder/status_decoder.cpp
         src/decoder/status_decoder.h
         src/forwarder/data_forwarder.cpp
+        src/decoder/raw_imu_decoder.cpp
+        src/decoder/raw_imu_decoder.h
+        src/decoder/attitude_decoder.cpp
+        src/decoder/attitude_decoder.h
+        src/decoder/rc_decoder.cpp
+        src/decoder/rc_decoder.h
 )

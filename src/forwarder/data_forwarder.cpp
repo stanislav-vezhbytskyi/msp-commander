@@ -11,11 +11,7 @@ void DataForwarder::forward(const DecodedTypes& data) {
 
         if constexpr (std::is_same_v<T, std::vector<MSP::PID>>) {
             std::cout << "Forwarded PID data:\n";
-            for (const auto& pid : arg) {
-                std::cout << "P: " << pid.p << ", I: " << pid.i << ", D: " << pid.d << '\n';
-            }
-
-        } else if constexpr (std::is_same_v<T, MSP::MSPSTATUS>) {
+        } else if constexpr (std::is_same_v<T, MSP::STATUS>) {
             std::cout << "Forwarded STATUS data:\n";
             std::cout << "cycleTime: " << arg.cycleTime << " us\n";
             std::cout << "i2cErrorsCount: " << arg.i2cErrorsCount << "\n";
@@ -29,7 +25,14 @@ void DataForwarder::forward(const DecodedTypes& data) {
             std::cout << "flag (bitfield): " << arg.flag << "\n";
             std::cout << "currentSet: " << static_cast<int>(arg.currentSet) << "\n";
 
-        } else if constexpr (std::is_same_v<T, std::monostate>) {
+        } else if constexpr(std::is_same_v<T, MSP::RawIMU>) {
+            std::cout<<"raw imu type here!";
+        }else if constexpr(std::is_same_v<T, MSP::ATTITUDE>) {
+            std::cout<<"attitude type here!";
+        }else if constexpr(std::is_same_v<T, MSP::RC>) {
+            std::cout<<"rc type here!";
+        }
+        else if constexpr (std::is_same_v<T, std::monostate>) {
             std::cout << "No decoded data\n";
 
         } else {

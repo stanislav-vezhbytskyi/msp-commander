@@ -65,18 +65,30 @@ namespace MSP {
     }
 
     struct PID {
-        uint8_t p, i, d;
+        uint8_t roll, pitch, yaw, alt, pos, posr, navr, level, mag, vel;
     };
 
-    struct Gyro {
-        float x, y, z;
-    };
-
-    struct MSPSTATUS {
+    struct STATUS {
         uint16_t cycleTime;
         uint16_t i2cErrorsCount;
         uint16_t sensor;
-        uint32_t flag;// todo: add dynamic logic to change parameter sequence
+        uint32_t flag; // todo: add dynamic logic to change parameter sequence
         uint8_t currentSet;
+    };
+
+    struct RawIMU {
+        uint16_t accX, accY, accZ,
+                gyrX, gyrY, gyrZ,
+                magX, magY, magZ;
+    };
+
+    struct ATTITUDE {
+        uint16_t angx, angy, heading;
+    };
+
+    //range[1000,2000]
+    struct RC {
+        uint16_t roll, pitch, yaw, throttle,
+                aux1, aux2, aux3, aux4;
     };
 }

@@ -5,8 +5,11 @@
 #include "msp_protocol.h"
 
 using DecodedTypes = std::variant<
-    std::vector<MSP::PID>,
-    MSP::MSPSTATUS,
+    MSP::PID,
+    MSP::STATUS,
+    MSP::RawIMU,
+    MSP::ATTITUDE,
+    MSP::RC,
     std::monostate
 //, todo: add new types
 >;
