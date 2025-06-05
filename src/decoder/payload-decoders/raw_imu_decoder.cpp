@@ -1,9 +1,9 @@
 
 #include "decoder/payload-decoders/raw_imu_decoder.h"
 
-#include "decoder/docoded_types.h"
+#include "../../../include/msp_payload_variant.h"
 
-DecodedTypes RawIMUDecoder::decode(const std::vector<uint8_t> &payload) {
+MSPPayloadVariant RawIMUDecoder::decode(const std::vector<uint8_t> &payload) {
     MSP::RawIMU r;
 
     r.accX = payload[0] | (payload[1] << 8);

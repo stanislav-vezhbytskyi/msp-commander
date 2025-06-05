@@ -5,7 +5,7 @@
 #include "../../../include/decoder/forwarder/data_forwarder.h"
 #include "msp_protocol.h"
 
-void DataForwarder::forward(const DecodedTypes& data) {
+void DataForwarder::forward(const MSPPayloadVariant& data) {
     std::visit([](auto&& arg) {
         using T = std::decay_t<decltype(arg)>;
 

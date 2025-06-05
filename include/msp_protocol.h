@@ -2,8 +2,11 @@
 
 #include <cstdint>
 
+
+//structure of msp packet:
+//$M<[data length][code][data][checksum]
 namespace MSP {
-    namespace MessageID {
+    namespace CodeID {
         // TX
         constexpr uint8_t IDENT = 100;
         constexpr uint8_t STATUS = 101;

@@ -14,15 +14,15 @@ class IDecoder;
 
 std::unique_ptr<IDecoder> DecoderFactory::create_decoder(uint8_t command) {
     switch (command) {
-        case MSP::MessageID::PID:
+        case MSP::CodeID::PID:
             return std::make_unique<PIDDecoder>();
-        case MSP::MessageID::STATUS:
+        case MSP::CodeID::STATUS:
             return std::make_unique<StatusDecoder>();
-        case MSP::MessageID::RAW_IMU:
+        case MSP::CodeID::RAW_IMU:
             return std::make_unique<RawIMUDecoder>();
-        case MSP::MessageID::ATTITUDE:
+        case MSP::CodeID::ATTITUDE:
             return std::make_unique<AttitudeDecoder>();
-        case MSP::MessageID::RC:
+        case MSP::CodeID::RC:
             return std::make_unique<RCDecoder>();
         default:
             return nullptr;

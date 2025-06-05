@@ -1,9 +1,9 @@
 
 #include "decoder/payload-decoders/status_decoder.h"
 
-#include "decoder/docoded_types.h"
+#include "../../../include/msp_payload_variant.h"
 
-DecodedTypes StatusDecoder::decode(const std::vector<uint8_t> &payload) {
+MSPPayloadVariant StatusDecoder::decode(const std::vector<uint8_t> &payload) {
     MSP::STATUS s;
 
     s.cycleTime = payload[0] | (payload[1] << 8);

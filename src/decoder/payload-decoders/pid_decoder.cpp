@@ -3,9 +3,9 @@
 #include <cstdint>
 
 #include "msp_protocol.h"
-#include "decoder/docoded_types.h"
+#include "../../../include/msp_payload_variant.h"
 
-DecodedTypes PIDDecoder::decode(const std::vector<uint8_t> &payload) {
+MSPPayloadVariant PIDDecoder::decode(const std::vector<uint8_t> &payload) {
     MSP::PID pid;
 
     pid.roll = payload[0];

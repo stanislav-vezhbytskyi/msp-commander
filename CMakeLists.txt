@@ -17,7 +17,7 @@ add_executable(msp_parser
         include/decoder/forwarder/data_forwarder.h
         src/decoder/payload-decoders/decoder_factory.cpp
         include/decoder/payload-decoders/decoder_factory.h
-        include/decoder/docoded_types.h
+        include/msp_payload_variant.h
         src/decoder/payload-decoders/status_decoder.cpp
         include/decoder/payload-decoders/status_decoder.h
         src/decoder/forwarder/data_forwarder.cpp
@@ -37,4 +37,8 @@ add_executable(msp_parser
         include/encoder/payload-encoders/rc_encoder.h
         src/encoder/payload-encoders/status_encoder.cpp
         include/encoder/payload-encoders/status_encoder.h
+        src/encoder/msp-request-builder.cpp
+        include/encoder/msp-request-builder.h
+        src/encoder/payload_encoders.cpp
+        include/encoder/payload_encoders.h
 )

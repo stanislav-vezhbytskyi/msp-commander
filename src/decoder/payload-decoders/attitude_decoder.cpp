@@ -1,9 +1,9 @@
 
 #include "decoder/payload-decoders/attitude_decoder.h"
 
-#include "decoder/docoded_types.h"
+#include "../../../include/msp_payload_variant.h"
 
-DecodedTypes AttitudeDecoder::decode(const std::vector<uint8_t> &payload) {
+MSPPayloadVariant AttitudeDecoder::decode(const std::vector<uint8_t> &payload) {
     MSP::ATTITUDE a;
 
     a.angx = payload[0] | (payload[1] << 8);

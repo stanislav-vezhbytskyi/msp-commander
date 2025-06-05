@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "decoder/docoded_types.h"
+#include "../../../include/msp_payload_variant.h"
 #include "decoder/forwarder/data_forwarder.h"
 #include "decoder/payload-decoders/decoder_factory.h"
 #include "dto/msp_dto.h"
@@ -16,7 +16,7 @@ void MspDtoHandler::handle(const MSPDTO& dto) {
         return;
     }
 
-    const DecodedTypes data = decoder->decode(dto.payload);
+    const MSPPayloadVariant data = decoder->decode(dto.payload);
 
     DataForwarder forwarder;
     forwarder.forward(data);
