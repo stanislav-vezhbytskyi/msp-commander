@@ -1,17 +1,17 @@
-#include "../../include/encoder/msp-request-builder.h"
+#include "../../include/encoder/packet_encoder.h"
 
 #include <vector>
 
-#include "encoder/payload_encoders.h"
+#include "encoder/payload_encoder.h"
 
 
-std::vector<uint8_t> MSPRequestBuilder::buildRequest(const uint8_t command, const MSPPayloadVariant& v) {
+std::vector<uint8_t> PacketEncoder::encode(const uint8_t command, const MSPPayloadVariant& v) {
     std::vector<uint8_t> request;
     request.push_back('$');
     request.push_back('M');
     request.push_back('>');
 
-    std::vector<uint8_t> payload = PayloadEncoders::encodePayload(v);
+    std::vector<uint8_t> payload = PayloadEncoder::encodePayload(v);
 
     request.push_back(payload.size());
 

@@ -28,4 +28,3 @@ std::unique_ptr<IDecoder> DecoderFactory::create_decoder(uint8_t command) {
             return nullptr;
     }
 }
-

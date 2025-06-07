@@ -1,4 +1,4 @@
-#include "../include/dto/msp_dto.h"
+#include "../include/msp_dto.h"
 #include "../include/decoder/msp_parser.h"
 
 #include <fcntl.h>
@@ -7,11 +7,9 @@
 #include <vector>
 #include <cstdint>
 
-#include "decoder/handler/msp_dto_handler.h"
-
+#include "../include/decoder/packet_decoder.h"
 
 int main() {
-
     std::cout<<"start parsing"<<std::endl;
     int fd = open("mock_msp_raw_imu.bin", O_RDONLY);
     if (fd == -1) {
@@ -20,7 +18,7 @@ int main() {
     }
 
     //for configuration msp
-    // termios tty;
+     //termios tty;
     // tcgetattr(fd, &tty);
     // cfsetispeed(&tty, B115200);
     // cfsetospeed(&tty, B115200);
@@ -39,9 +37,6 @@ int main() {
         mspParser.parse(bytesRead,buffer,packets);
         
     //}
-
-    MspDtoHandler handler;
-    handler.handle(packets.back());
 
 
 

@@ -2,7 +2,7 @@
 #define MSP_PARSER_H
 
 #include <vector>
-#include "../dto/msp_dto.h"
+#include "../msp_dto.h"
 #include <iostream>
 #include "parsing_state.h"
 

@@ -1,14 +1,10 @@
-//
-// Created by stas on 6/6/25.
-//
-
-#include "../../include/encoder/payload_encoders.h"
+#include "../../include/encoder/payload_encoder.h"
 
 #include <variant>
 
 #include "msp_payload_variant.h"
 
-namespace PayloadEncoders {
+namespace PayloadEncoder {
     namespace {
         inline void encodeInt16(std::vector<uint8_t>& payload, int16_t val) {
             payload.push_back(val & 0xFF);
@@ -38,7 +34,7 @@ namespace PayloadEncoders {
             return payload;
         }
 
-        std::vector<uint8_t> encode(MSP::RawIMU& r) {
+        std::vector<uint8_t> encode(const MSP::RawIMU& r) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, r.accX);
@@ -53,7 +49,7 @@ namespace PayloadEncoders {
             return payload;
         }
 
-        std::vector<uint8_t> encode(MSP::STATUS& s) {
+        std::vector<uint8_t> encode(const MSP::STATUS& s) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, s.cycleTime);
@@ -69,7 +65,7 @@ namespace PayloadEncoders {
             return payload;
         }
 
-        std::vector<uint8_t> encode(MSP::RC& rc) {
+        std::vector<uint8_t> encode(const MSP::RC& rc) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, rc.roll);
@@ -82,6 +78,9 @@ namespace PayloadEncoders {
             encodeInt16(payload, rc.aux4);
 
             return payload;
+        }
+        std::vector<uint8_t> encode(const std::monostate& m) {
+            return {};
         }
     }
     std::vector<uint8_t> encodePayload(const MSPPayloadVariant& data) {
