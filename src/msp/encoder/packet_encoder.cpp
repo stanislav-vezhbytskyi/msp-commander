@@ -1,9 +1,10 @@
-#include "../../include/encoder/packet_encoder.h"
+#include "msp/encoder/packet_encoder.h"
 
+#include <cstdint>
 #include <vector>
 
-#include "encoder/payload_encoder.h"
-
+#include "msp/msp_payload_variant.h"
+#include "msp/encoder/payload_encoder.h"
 
 std::vector<uint8_t> PacketEncoder::encode(const uint8_t command, const MSPPayloadVariant& v) {
     std::vector<uint8_t> request;

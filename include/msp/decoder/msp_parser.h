@@ -1,10 +1,11 @@
 #ifndef MSP_PARSER_H
 #define MSP_PARSER_H
 
+#include <cstdint>
 #include <vector>
-#include "../msp_dto.h"
 #include <iostream>
 #include "parsing_state.h"
+#include "msp/msp_dto.h"
 
 enum class ParsingState;
 

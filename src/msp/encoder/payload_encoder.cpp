@@ -1,8 +1,6 @@
-#include "../../include/encoder/payload_encoder.h"
-
 #include <variant>
 
-#include "msp_payload_variant.h"
+#include "../../../include/msp/msp_payload_variant.h"
 
 namespace PayloadEncoder {
     namespace {
