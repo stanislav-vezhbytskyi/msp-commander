@@ -4,6 +4,6 @@
 
 #include "msp/msp_payload_variant.h"
 
-namespace PacketDecoder {
+namespace packet_decoder {
     MSPPayloadVariant decode(const MSPDTO& dto);
 }

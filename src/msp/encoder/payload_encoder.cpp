@@ -2,14 +2,14 @@
 
 #include "../../../include/msp/msp_payload_variant.h"
 
-namespace PayloadEncoder {
+namespace payload_encoder {
     namespace {
         inline void encodeInt16(std::vector<uint8_t>& payload, int16_t val) {
             payload.push_back(val & 0xFF);
             payload.push_back((val >> 8) & 0xFF);
         }
 
-        std::vector<uint8_t> encode(const MSP::ATTITUDE& att) {
+        std::vector<uint8_t> encode(const msp::Attitude& att) {
             std::vector<uint8_t> payload;
             encodeInt16(payload, att.angx);
             encodeInt16(payload, att.angy);
@@ -17,22 +17,21 @@ namespace PayloadEncoder {
             return payload;
         }
 
-        std::vector<uint8_t> encode(const MSP::PID& pid) {
+        std::vector<uint8_t> encode(const msp::PID& pid) {
             std::vector<uint8_t> payload;
-            payload.push_back(pid.roll);
-            payload.push_back(pid.pitch);
-            payload.push_back(pid.yaw);
-            payload.push_back(pid.alt);
-            payload.push_back(pid.pos);
-            payload.push_back(pid.posr);
-            payload.push_back(pid.navr);
-            payload.push_back(pid.level);
-            payload.push_back(pid.mag);
-            payload.push_back(pid.vel);
+            payload.reserve(msp::PID::PIDITEMS*3);
+
+            for (const auto& i: pid.items) {
+                payload.push_back(i.p);
+                payload.push_back(i.i);
+                payload.push_back(i.d);
+            }
+
             return payload;
         }
 
-        std::vector<uint8_t> encode(const MSP::RawIMU& r) {
+
+        std::vector<uint8_t> encode(const msp::RawIMU& r) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, r.accX);
@@ -47,7 +46,7 @@ namespace PayloadEncoder {
             return payload;
         }
 
-        std::vector<uint8_t> encode(const MSP::STATUS& s) {
+        std::vector<uint8_t> encode(const msp::Status& s) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, s.cycleTime);
@@ -63,7 +62,7 @@ namespace PayloadEncoder {
             return payload;
         }
 
-        std::vector<uint8_t> encode(const MSP::RC& rc) {
+        std::vector<uint8_t> encode(const msp::RC& rc) {
             std::vector<uint8_t> payload;
 
             encodeInt16(payload, rc.roll);

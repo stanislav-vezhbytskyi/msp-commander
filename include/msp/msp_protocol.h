@@ -1,12 +1,13 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
-
+#include <cstddef>
 
 //structure of msp packet:
 //$M<[data length][code][data][checksum]
-namespace MSP {
-    namespace CodeID {
+namespace msp {
+    namespace codeid {
         // TX
         constexpr uint8_t IDENT = 100;
         constexpr uint8_t STATUS = 101;
@@ -67,11 +68,39 @@ namespace MSP {
         constexpr uint8_t EXT_DEBUG = 254;
     }
 
-    struct PID {
-        uint8_t roll, pitch, yaw, alt, pos, posr, navr, level, mag, vel;
+    struct PIDItem {
+        uint8_t p, i, d;
     };
 
-    struct STATUS {
+    //Order : ROLL / PITCH / YAW / ALT / POS / POSR / NAVR / LEVEL /MAG / VEL VEL is not used
+    struct PID {
+        static constexpr size_t PIDITEMS = 5;
+        std::array<PIDItem, PIDITEMS> items;
+
+        PIDItem &roll() { return items[0]; }
+        const PIDItem &roll() const { return items[0]; }
+
+        PIDItem &pitch() { return items[1]; }
+        const PIDItem &pitch() const { return items[1]; }
+
+        PIDItem &yaw() { return items[2]; }
+        const PIDItem &yaw() const { return items[1]; }
+
+        PIDItem &alt() { return items[3]; }
+        const PIDItem &alt() const { return items[1]; }
+
+        PIDItem &pos() { return items[4]; }
+        const PIDItem &pos() const { return items[1]; }
+
+
+        // PIDItem& posr()  { return items[5]; }
+        // PIDItem& navr()  { return items[6]; }
+        // PIDItem& level() { return items[7]; }
+        // PIDItem& mag()   { return items[8]; }
+        // PIDItem& vel()   { return items[9]; }
+    };
+
+    struct Status {
         uint16_t cycleTime;
         uint16_t i2cErrorsCount;
         uint16_t sensor;
@@ -85,7 +114,7 @@ namespace MSP {
                 magX, magY, magZ;
     };
 
-    struct ATTITUDE {
+    struct Attitude {
         uint16_t angx, angy, heading;
     };
 
@@ -94,4 +123,10 @@ namespace MSP {
         uint16_t roll, pitch, yaw, throttle,
                 aux1, aux2, aux3, aux4;
     };
+
+    const uint8_t GET_STATUS[] = {'$', 'M', '<', 0x00, 101, 101};
+    const uint8_t GET_RAW_IMU[] = {'$', 'M', '<', 0x00, 102, 102};
+    const uint8_t GET_RC[] = {'$', 'M', '<', 0x00, 105, 105};
+    const uint8_t GET_ATTITUDE[] = {'$', 'M', '<', 0x00, 108, 108};
+    const uint8_t GET_PID[] = {'$', 'M', '<', 0x00, 112, 112};
 }

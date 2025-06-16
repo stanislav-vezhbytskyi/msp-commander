@@ -4,7 +4,7 @@
 #include <cstdint>
 
 
-namespace PayloadEncoder {
+namespace payload_encoder {
    std::vector<uint8_t> encodePayload(const MSPPayloadVariant& data) ;
 }
 

@@ -12,7 +12,7 @@ std::vector<uint8_t> PacketEncoder::encode(const uint8_t command, const MSPPaylo
     request.push_back('M');
     request.push_back('>');
 
-    std::vector<uint8_t> payload = PayloadEncoder::encodePayload(v);
+    std::vector<uint8_t> payload = payload_encoder::encodePayload(v);
 
     request.push_back(payload.size());
 
