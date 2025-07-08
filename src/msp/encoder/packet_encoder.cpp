@@ -6,7 +6,7 @@
 #include "msp/msp_payload_variant.h"
 #include "msp/encoder/payload_encoder.h"
 
-std::vector<uint8_t> PacketEncoder::encode(const uint8_t command, const MSPPayloadVariant& v) {
+std::vector<uint8_t> PacketEncoder::encode(const uint8_t cmdId, const MSPPayloadVariant& v) {
     std::vector<uint8_t> request;
     request.push_back('$');
     request.push_back('M');
@@ -16,7 +16,7 @@ std::vector<uint8_t> PacketEncoder::encode(const uint8_t command, const MSPPaylo
 
     request.push_back(payload.size());
 
-    request.push_back(command);
+    request.push_back(cmdId);
 
     request.insert(request.end(), payload.begin(), payload.end());
 

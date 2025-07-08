@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include "msp/msp_dto.h"
+#include "plog/Log.h"
 
 const uint8_t MSPParser::MSP_HEADER_START = '$';  // 0x24
 const uint8_t MSPParser::MSP_HEADER_MAGIC = 'M';  // 0x4D
@@ -81,7 +82,6 @@ void MSPParser::parse(ssize_t bytesRead, std::vector<uint8_t> &buffer, std::vect
                     }
                     packets.back().payload.push_back(buffer[i]);
 
-                    std::cout << "length " << packets.back().length << std::endl;
                     if (packets.back().payload.size() == packets.back().length) {
                         parsingState = ParsingState::ValidatingData;
                     }
@@ -94,10 +94,10 @@ void MSPParser::parse(ssize_t bytesRead, std::vector<uint8_t> &buffer, std::vect
                         break;
                     }
                     if (buffer[i] == calculateChecksum(packets.back())) {
-                        std::cout << "packet successfully read" << std::endl;
+                        PLOGD << "packet successfully read";
                         parsingState = ParsingState::WaitingForHeader;
                     } else {
-                        std::cout << "checksum error" << std::endl;
+                        PLOGW << "checksum error";
                         packets.pop_back();  // discard invalid packet
                         parsingState = ParsingState::WaitingForHeader;
                     }
@@ -106,7 +106,7 @@ void MSPParser::parse(ssize_t bytesRead, std::vector<uint8_t> &buffer, std::vect
 
                 case ParsingState::Error:
                     if (!packets.empty()) packets.pop_back();
-                    std::cout << "error" << std::endl;
+                    PLOGE << "error: can't parse packet. Packet is incorrect.";
                     parsingState = ParsingState::WaitingForHeader;
                     i++;
                     break;

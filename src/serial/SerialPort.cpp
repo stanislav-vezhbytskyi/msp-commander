@@ -5,17 +5,19 @@
 #include <termio.h>
 #include <unistd.h>
 
+#include "plog/Log.h"
+
 
 bool SerialPort::open(const std::string &device, int baudrate) {
     fd = ::open(device.c_str(), O_RDWR | O_NOCTTY | O_SYNC);
 
     if (fd == -1) {
-        perror("open");
+        PLOGF << "Failed to open serial port\n";
         return false;
     }
 
     if (tcgetattr(fd, &tty) != 0) {
-        perror("tcgetattr");
+        PLOGF << "Failed to get serial port attributes\n";
         return false;
     }
 

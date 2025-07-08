@@ -6,7 +6,7 @@
 
 
 class PacketEncoder {
-    static std::vector<uint8_t> encode(uint8_t command, const MSPPayloadVariant& v);
+    static std::vector<uint8_t> encode(uint8_t cmdId, const MSPPayloadVariant& v);
 };
 
 

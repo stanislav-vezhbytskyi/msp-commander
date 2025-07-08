@@ -8,7 +8,7 @@
 class TelemetryLogWriter {
 public:
     void open(const std::string &fileName);
-    bool isOpen();
+    bool isOpen() const;
     void write(const std::vector<TelemetryFrame> &f);
     private:
     std::fstream fout;

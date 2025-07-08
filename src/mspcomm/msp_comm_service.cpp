@@ -3,19 +3,19 @@
 #include <iostream>
 
 #include "msp/msp_protocol.h"
+#include "plog/Log.h"
 
 void MspCommService::requestAllSensorData( SerialPort& s) {
 
-    if (!s.write(msp::GET_ATTITUDE, sizeof(msp::GET_ATTITUDE))) {
-        std::cerr << "Failed to write to serial port\n";
-        return;
+    send(s,msp::GET_ATTITUDE, sizeof(msp::GET_RC));
+    send(s,msp::GET_PID, sizeof(msp::GET_RC));
+    send(s,msp::GET_RC, sizeof(msp::GET_RC));
+}
+
+bool MspCommService::send(SerialPort& s, const uint8_t* cmd, size_t size) {
+    if (!s.write(cmd, size)) {
+        PLOGF << "Failed to write command " << static_cast<int>(cmd[0]) << "\n";
+        return false;
     }
-    if (! s.write(msp::GET_PID, sizeof(msp::GET_PID))){
-        std::cerr << "Failed to write to serial port\n";
-        return;
-    }
-    if (! s.write(msp::GET_RC, sizeof(msp::GET_RC))){
-        std::cerr << "Failed to write to serial port\n";
-        return;
-    }
+    return true;
 }

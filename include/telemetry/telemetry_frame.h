@@ -6,4 +6,5 @@ struct TelemetryFrame {
     telemetry::data::RCData rc;
     telemetry::data::AttitudeData attitude;
     telemetry::data::PIDData pid;
+    telemetry::data::RawIMUData imuData;
 };

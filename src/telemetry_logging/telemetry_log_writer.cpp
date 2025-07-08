@@ -6,10 +6,11 @@
 #include <iostream>
 #include <string>
 
-void TelemetryLogWriter::write(const std::vector<TelemetryFrame> &telemetry) {
+#include "plog/Log.h"
 
+void TelemetryLogWriter::write(const std::vector<TelemetryFrame> &telemetry) {
     if (!fout.is_open()) {
-        std::cerr << "Log file is not open!\n";
+        LOGF << "Log file is not open!\n";
         return;
     }
     for (const auto &t: telemetry) {
@@ -18,18 +19,12 @@ void TelemetryLogWriter::write(const std::vector<TelemetryFrame> &telemetry) {
         int yawErr = t.rc.yaw - t.attitude.heading;
 
         fout << t.timestamp << ", "
-                << t.rc.roll << ", "
-                << t.attitude.angx << ", "
-                << rollErr << ", "
-                << t.rc.pitch << ", "
-                << t.attitude.angy << ", "
-                << pitchErr << ", "
-                << t.rc.yaw << ", "
-                << t.attitude.heading << ", "
-                << yawErr << ", "
-                << t.pid.roll().p << ", "
-                << t.pid.roll().i << ", "
-                << t.pid.roll().d << ", "
+                << t.rc.roll << ", " << t.rc.pitch << ", " << t.rc.yaw << ", "
+                << t.attitude.angx << ", " << t.attitude.angy << ", " << t.attitude.heading << ", "
+                << rollErr << ", " << pitchErr << ", " << yawErr << ", "
+                << t.imuData.gyrX << ", " << t.imuData.gyrY << ", " << t.imuData.gyrZ << ", "
+                << t.imuData.accX << ", " << t.imuData.accY << ", " << t.imuData.accZ << ", "
+                << t.pid.roll().p << ", " << t.pid.roll().i << ", " << t.pid.roll().d << ", "
                 << "\n";
     }
 }
@@ -40,23 +35,16 @@ void TelemetryLogWriter::open(const std::string &fileName) {
 
     if (!fileExists) {
         fout << "timestamp" << ", "
-                 << "rc.roll" << ", "
-                 << "attitude.angx" << ", "
-                 << "rollErr" << ", "
-                 << "rc.pitch" << ", "
-                 << "attitude.angy" << ", "
-                 << "pitchErr" << ", "
-                 << "rc.yaw" << ", "
-                 << "attitude.heading" << ", "
-                 << "yawErr" << ", "
-                 << "pid.roll().p" << ", "
-                 << "pid.roll().i" << ", "
-                 << "pid.roll().d" << ", "
-                 << "\n";
+                << "rc.roll" << ", " << "rc.pitch" << ", " << "rc.yaw" << ", "
+                << "attitude.angx" << ", " << "attitude.angy" << ", " << "attitude.heading" << ", "
+                << "rollErr" << ", " << "pitchErr" << ", " << "yawErr" << ", "
+                << "gyro.rollRate" << ", " << "gyro.pitchRate" << ", " << "gyro.yawRate" << ", "
+                << "accel.x" << ", " << "accel.y" << ", " << "accel.z" << ", "
+                << "pid.roll().p" << ", " << "pid.roll().i" << ", " << "pid.roll().d" << ", "
+                << "\n";
     }
 }
 
-bool TelemetryLogWriter::isOpen() {
+bool TelemetryLogWriter::isOpen() const {
     return fout.is_open();
 }
-

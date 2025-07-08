@@ -3,7 +3,8 @@
 
 class MspCommService {
 public:
-    void requestAllSensorData( SerialPort& s);
+    static void requestAllSensorData( SerialPort& s);
+    static bool send(SerialPort& s, const uint8_t* cmd, size_t size);
 };
 
 
