@@ -1,5 +1,6 @@
 #include "../../include/telemetry_logging/telemetry_log_writer.h"
 
+#include <atomic>
 #include <filesystem>
 #include <fstream>
 #include <iosfwd>
@@ -8,12 +9,12 @@
 
 #include "plog/Log.h"
 
-void TelemetryLogWriter::write(const std::vector<TelemetryFrame> &telemetry) {
-    if (!fout.is_open()) {
-        LOGF << "Log file is not open!\n";
-        return;
-    }
-    for (const auto &t: telemetry) {
+
+void TelemetryLogWriter::write(std::shared_ptr<
+                                   BlockingQueue<TelemetryFrame> > telemetry, std::atomic<bool> &running) {
+    while (running) {
+        const auto &t = telemetry->pop();
+
         int rollErr = t.rc.roll - t.attitude.angx;
         int pitchErr = t.rc.pitch - t.attitude.angy;
         int yawErr = t.rc.yaw - t.attitude.heading;
@@ -28,6 +29,7 @@ void TelemetryLogWriter::write(const std::vector<TelemetryFrame> &telemetry) {
                 << "\n";
     }
 }
+
 
 void TelemetryLogWriter::open(const std::string &fileName) {
     bool fileExists = std::filesystem::exists(fileName);

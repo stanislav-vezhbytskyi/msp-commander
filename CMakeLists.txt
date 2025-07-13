@@ -41,6 +41,11 @@ add_executable(msp_parser
         src/telemetry/data_to_raw.cpp
 
         src/util/config_reader.cpp
+        include/util/blocking_queue.hpp
+        src/telemetry/telemetry_stream_processor.cpp
+        include/telemetry/telemetry_stream_processor.hpp
+        src/msp/msp_payload_router.cpp
+        include/msp/msp_payload_router.hpp
 )
 
 # External libraries
